@@ -48,3 +48,13 @@ const banUser = async (req, res, next) => {
         next(err);
     }
 };
+
+const unBanUser = async (req, res, next) => {
+    try {
+        const { userId } = req.params;
+        await User.findByIdAndUpdate(userId, { isBanned: false });
+        res.json({ message: 'User unbanned successfully' });
+    } catch (err) {
+        next(err);
+    }
+};

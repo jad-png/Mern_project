@@ -58,3 +58,18 @@ const unBanUser = async (req, res, next) => {
         next(err);
     }
 };
+
+const updateRole = async (req, res, next) => {
+    try {
+        const { userId } = req.params;
+        const { role } = req.body;
+        if (!['Client', 'Coach'].includes(role)) {
+            return res.status(400).json({ message: 'Invalid role' });
+        }
+        await User.findByIdAndUpdate(userId, { role });
+    } catch (err) {
+        next(err);
+    }
+};
+
+module.exports = { register, login, listUsers, banUser, unBanUser, updateRole };

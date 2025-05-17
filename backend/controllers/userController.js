@@ -38,3 +38,13 @@ const listUsers = async (req, res, next) => {
         next(err);
     }
 };
+
+const banUser = async (req, res, next) => {
+    try {
+        const { userId } = req.params;
+        await User.findByIdAndUpdate(userId, { isBanned: true });
+        res.json({ message: 'User banned successfully' });
+    } catch (err) {
+        next(err);
+    }
+};

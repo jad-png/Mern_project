@@ -30,3 +30,11 @@ const login = async (req, res, next) => {
     }
 };
 
+const listUsers = async (req, res, next) => {
+    try {
+        const users = await User.find({}, { password: 0 });
+        res.json(users);
+    } catch (err) {
+        next(err);
+    }
+};
